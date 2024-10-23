@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Orbriton";
+  src: url("./assets/fonts/Orbitron-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer components {
+  .primary-btn {
+    @apply bg-purple p-2 rounded-lg text-center font-bold w-1/4 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-green duration-300 disabled:opacity-50;
+  }
+}
+
+/* Utilize a fonte Star Wars */
+.font-starwars {
+  font-family: "Orbriton", sans-serif;
+}

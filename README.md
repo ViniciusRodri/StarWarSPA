@@ -1,45 +1,50 @@
-# StarWarSPA
+# React + TypeScript + Vite
 
-![Screenshot 2024-10-23 at 10-52-44 Teste SPA - AEM](https://github.com/user-attachments/assets/ecba47dd-e0f2-49e9-928a-5dbee076bd2f)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-<br />
-<div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-  </a>
+Currently, two official plugins are available:
 
-  <h3 align="center">Form and StarWars SPA Test Example</h3>
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-  <p align="center">
-   Simple application, with two pages, integration with API, to integrate with the Adobe CMS (AEM). Using the latest and best Front-end technologies. 
-  </p>
-</div>
+## Expanding the ESLint configuration
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-![Screenshot 2024-10-23 at 11-02-49 Teste SPA - AEM](https://github.com/user-attachments/assets/8ecdd80d-1ffd-45a0-bf59-f338bea4053e)
+- Configure the top-level `parserOptions` property like this:
 
-I'm studying Adobe's CMS (Adobe Experience Manager) and I created this simple project to integrate the application made in React.Js into the CMS.
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-Of course, this project also shows a bit of my skills in creating a front-end application, integrating with external APIs, using the best and newest technologies on the market. I have many years of experience as a software developer and I'm always constantly evolving!
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
 
-
-### Built With
-
-
-<div align="center">
-	<table>
-		<tr>
-			<td><img width="50" src="https://user-images.githubusercontent.com/25181517/202896760-337261ed-ee92-4979-84c4-d4b829c7355d.png" alt="Tailwind CSS" title="Tailwind CSS"/></td>
-			<td><img width="50" src="https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png" alt="JavaScript" title="JavaScript"/></td>
-			<td><img width="50" src="https://user-images.githubusercontent.com/25181517/183897015-94a058a6-b86e-4e42-a37f-bf92061753e5.png" alt="React" title="React"/></td>
-			<td><img width="50" src="https://github.com/user-attachments/assets/a3e40bf1-82d5-4907-b3bd-10d2eb4b00f5" alt="React Query" title="React Query"/></td>
-		</tr>
-	</table>
-</div>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
+```
